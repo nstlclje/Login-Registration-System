@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Registration System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #C6DCBA; /* Light green */
+            color: #3C3C3C; /* Dark gray for text */
+        }
+
+        h1, h2 {
+            color: #B3A398; /* Dark taupe */
+        }
+
+        .regForm, .logForm, .welcomePanel {
+            background-color: #D7E4C0; /* Light green-gray */
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #BBC3A4; /* Pale green */
+            color: #3C3C3C; /* Dark gray for text */
+            cursor: pointer;
+        }
+
+        #okButton {
+            background-color: #BBC3A4; /* Pale green */
+            color: #3C3C3C; /* Dark gray for text */
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Login and registration system</h1>
+    <div class="regForm">
+        <h2>Register here!</h2>
+        <form action="#" id="registrationForm" onsubmit="return validateRegistration()">
+            <p>Username: <input type="text" id="usernameReg"></p>
+            <p>Password: <input type="password" id="passwordReg"></p>
+            <input type="submit" value="Register">
+        </form>    
+    </div>
+    <div class="logForm" style="display: none;">
+        <h2>Login here! Time to login now!</h2>
+        <form action="#" id="loginForm">
+            <p>Username: <input type="text" id="username"></p>
+            <p>Password: <input type="password" id="password"></p>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+    <div class="welcomePanel" id="welcomePanel" style="display: none;">
+        <h2 id="greeting"></h2>
+        <button id="okButton" onclick="registerAgain()">OK</button>
+    </div>
+    <script>
+        function validateRegistration() {
+            var password = document.getElementById("passwordReg").value;
+
+            // Check password length
+            if (password.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+
+            // Check if password consists only of integers
+            if (/^\d+$/.test(password)) {
+                alert("Password cannot consist only of integers.");
+                return false;
+            }
+
+            // Check if password contains both uppercase and lowercase characters
+            if (!/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+                alert("Password must contain both uppercase and lowercase characters.");
+                return false;
+            }
+
+            // Registration successful, show welcome message
+            showWelcomeMessage();
+
+            return true;
+        }
+
+        function showWelcomeMessage() {
+            var username = document.getElementById("usernameReg").value;
+            document.getElementById("welcomePanel").style.display = "block";
+            document.getElementById("greeting").innerText = "Welcome, " + username + "!";
+        }
+
+        function registerAgain() {
+            // Hide the welcome panel and reset the registration form
+            document.getElementById("welcomePanel").style.display = "none";
+            document.getElementById("registrationForm").reset();
+        }
+    </script>
+</body>
+</html>
